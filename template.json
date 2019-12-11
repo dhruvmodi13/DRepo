@@ -20,13 +20,9 @@
         },
         "Level0": {
             "type": "Object"
-        },
-        "url": {
-            "type": "String"
         }
     },
     "variables": {
-        "storageUrl": "[parameters('url')]"
     },
     "resources": [
         {
@@ -109,23 +105,6 @@
                 "count": "[length(parameters('Level0').Modules)]",
                 "mode": "Serial",
                 "batchSize": 1
-            }
-        },
-        {
-            "type": "Microsoft.Automation/automationAccounts/runbooks",
-            "apiVersion": "2018-06-30",
-            "name": "[concat(parameters('accountName'), '/StorageRollOver')]",
-            "location": "[parameters('accountLocation')]",
-            "properties": {
-                "description": "This should Rollover StorageAccount Secrets runbook",
-                "logVerbose": false,
-                "logProgress": false,
-                "logActivityTrace": 0,
-                "runbookType": "PowerShell",
-                "publishContentLink": {
-                    "uri": "[variables('storageUrl')]",
-                    "version": "1.0.0.0"
-                }
             }
         }
 
