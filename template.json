@@ -1,9 +1,8 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0",
     "parameters": {
         "accountName": {
-            "defaultValue": "siautomation",
             "type": "String"
         },
         "accountLocation": {
@@ -82,7 +81,7 @@
                 "name": "Level1ModulesInstall",
                 "count": "[length(parameters('Level1').Modules)]",
                 "mode": "Serial",
-                "batchSize": 5
+                "batchSize": 4
             }
         },
         {
@@ -105,20 +104,7 @@
                 "mode": "Serial",
                 "batchSize": 1
             }
-        },
-        {
-            "type": "Microsoft.Automation/automationAccounts/runbooks",
-            "apiVersion": "2018-06-30",
-            "name": "[concat(parameters('accountName'), '/StorageRollOver')]",
-            "location": "[parameters('accountLocation')]",
-            "properties": {
-                "description": "This should Rollover StorageAccount Secrets runbook",
-                "logVerbose": false,
-                "logProgress": false,
-                "logActivityTrace": 0,
-                "runbookType": "PowerShell"
-            }
         }
-
-    ]
+    ],
+    "outputs": {}
 }
