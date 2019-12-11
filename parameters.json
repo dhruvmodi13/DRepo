@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "accountName": {
-            "value": "dhmodi"
+            "value": "automation"
         },
         "accountLocation": {
             "value": "eastus"
@@ -32,57 +32,15 @@
             "value": {
                 "Modules": [
                     {
-                        "Name": "AzureRM.AnalysisServices",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.analysisservices.0.6.14.nupkg"
-                    },
-                    {
-                        "Name": "Azure.AnalysisServices",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azure.analysisservices.0.5.4.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.ApiManagement",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.apimanagement.6.1.7.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.ApplicationInsights",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.applicationinsights.0.1.8.nupkg"
-                    },
-                    {
                         "Name": "AzureRM.Automation",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.automation.6.1.1.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.Backup",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.backup.4.0.11.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.Batch",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.batch.4.1.5.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.Billing",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.billing.0.14.6.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Cdn",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.cdn.5.0.6.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.CognitiveServices",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.cognitiveservices.0.9.12.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Compute",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.compute.5.9.1.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Consumption",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.consumption.0.3.7.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.ContainerInstance",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.containerinstance.0.2.12.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.ContainerRegistry",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.containerregistry.1.0.10.nupkg"
@@ -103,14 +61,7 @@
                         "Name": "AzureRM.DataLakeStore",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.datalakestore.6.2.1.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.DevTestLabs",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.devtestlabs.4.0.9.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Dns",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.dns.5.1.0.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.EventGrid",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.eventgrid.0.3.7.nupkg"
@@ -119,129 +70,35 @@
                         "Name": "AzureRM.EventHub",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.eventhub.0.7.0.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.HDInsight",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.hdinsight.4.1.8.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Insights",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.insights.5.1.5.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.IotHub",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.iothub.3.1.8.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.KeyVault",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.keyvault.5.2.1.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.LogicApp",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.logicapp.4.1.4.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.MachineLearning",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.machinelearning.0.18.5.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.MachineLearningCompute",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.machinelearningcompute.0.4.8.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.MarketplaceOrdering",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.marketplaceordering.0.2.7.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.Media",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.media.0.10.4.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.Network",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.network.6.11.1.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.NotificationHubs",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.notificationhubs.5.0.3.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.OperationalInsights",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.operationalinsights.5.0.6.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.PolicyInsights",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.policyinsights.1.1.0.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.PowerBIEmbedded",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.powerbiembedded.4.1.10.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.RecoveryServices",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.recoveryservices.4.1.9.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.RecoveryServices.Backup",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.recoveryservices.backup.4.5.2.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.RecoveryServices.SiteRecovery",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.recoveryservices.siterecovery.0.2.12.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.RedisCache",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.rediscache.5.1.0.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Relay",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.relay.0.3.12.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.Resources",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.resources.6.7.3.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.Scheduler",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.scheduler.0.16.10.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.ServiceBus",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.servicebus.0.6.13.nupkg"
                     },
-                    {
-                        "Name": "AzureRM.ServiceFabric",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.servicefabric.0.3.15.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.SignalR",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.signalr.1.0.0.nupkg"
-                    },
+
                     {
                         "Name": "AzureRM.Sql",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.sql.4.12.1.nupkg"
                     },
+
                     {
                         "Name": "AzureRM.Storage",
                         "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.storage.5.2.0.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.StreamAnalytics",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.streamanalytics.4.0.10.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Tags",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.tags.4.0.5.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.TrafficManager",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.trafficmanager.4.1.3.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.UsageAggregates",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.usageaggregates.4.0.5.nupkg"
-                    },
-                    {
-                        "Name": "AzureRM.Websites",
-                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.websites.5.2.0.nupkg"
                     }
                 ]
             }
