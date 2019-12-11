@@ -6,12 +6,6 @@
             "defaultValue": "siautomation",
             "type": "String"
         },
-        "phase1StartTime": {
-            "type": "String"
-        },
-        "phase2StartTime": {
-            "type": "String"
-        },
         "accountLocation": {
             "type": "String"
         },
@@ -123,35 +117,6 @@
                 "logProgress": false,
                 "logActivityTrace": 0,
                 "runbookType": "PowerShell"
-            }
-        },
-        {
-            "type": "Microsoft.Automation/automationAccounts/schedules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/Phase1Schedule')]",
-            "properties": {
-                "description": "Phase1 Schedule for Roll over of secrets",
-                "startTime": "parameters('phase1StartTime')",
-                "expiryTime": "9999-12-31T23:59:59.9999999+00:00",
-                "interval": 90,
-                "frequency": "Day",
-                "timeZone": "Asia/Kolkata"
-            }
-        },
-        {
-            "type": "Microsoft.Automation/automationAccounts/schedules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/Phase2Schedule')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Automation/automationAccounts', parameters('accountName'))]"
-            ],
-            "properties": {
-                "description": "Phase2 schedule to complete secrets rollover",
-                "startTime": "parameters('phase2StartTime')",
-                "expiryTime": "9999-12-31T23:59:59.9999999+00:00",
-                "interval": 90,
-                "frequency": "Hour",
-                "timeZone": "Asia/Kolkata"
             }
         }
 
