@@ -1,0 +1,117 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accountName": {
+            "value": "automation"
+        },
+        "accountLocation": {
+            "value": "eastus"
+        },
+        "level3": {
+            "value": {
+                "Modules": [
+                    {
+                        "Name": "AzureRM.profile",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.profile.5.8.2.nupkg"
+                    }
+                ]
+            }
+        },
+        "level2": {
+            "value": {
+                "Modules": [
+                    {
+                        "Name": "Azure.Storage",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azure.storage.4.6.1.nupkg"
+                    }
+                ]
+            }
+        },
+        "level1": {
+            "value": {
+                "Modules": [
+                    {
+                        "Name": "AzureRM.Automation",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.automation.6.1.1.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.Batch",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.batch.4.1.5.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.ContainerRegistry",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.containerregistry.1.0.10.nupkg"
+                    },
+                    {
+                        "Name": "AzureRM.DataFactories",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.datafactories.5.0.3.nupkg"
+                    },
+                    {
+                        "Name": "AzureRM.DataFactoryV2",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.datafactoryv2.0.5.11.nupkg"
+                    },
+                    {
+                        "Name": "AzureRM.DataLakeAnalytics",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.datalakeanalytics.5.1.4.nupkg"
+                    },
+                    {
+                        "Name": "AzureRM.DataLakeStore",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.datalakestore.6.2.1.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.EventGrid",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.eventgrid.0.3.7.nupkg"
+                    },
+                    {
+                        "Name": "AzureRM.EventHub",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.eventhub.0.7.0.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.KeyVault",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.keyvault.5.2.1.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.Media",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.media.0.10.4.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.Resources",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.resources.6.7.3.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.ServiceBus",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.servicebus.0.6.13.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.Sql",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.sql.4.12.1.nupkg"
+                    },
+
+                    {
+                        "Name": "AzureRM.Storage",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.storage.5.2.0.nupkg"
+                    }
+                ]
+            }
+        },
+        "level0": {
+            "value": {
+                "Modules": [
+                    {
+                        "Name": "AzureRM",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net:443/packages/azurerm.6.13.1.nupkg"
+                    }
+                ]
+            }
+        }
+    }
+}

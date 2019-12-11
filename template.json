@@ -1,0 +1,159 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accountName": {
+            "defaultValue": "siautomation",
+            "type": "String"
+        },
+        "phase1StartTime": {
+            "type": "String"
+        },
+        "phase2StartTime": {
+            "type": "String"
+        },
+        "accountLocation": {
+            "type": "String"
+        },
+        "Level3": {
+            "type": "Object"
+        },
+        "Level2": {
+            "type": "Object"
+        },
+        "Level1": {
+            "type": "Object"
+        },
+        "Level0": {
+            "type": "Object"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/', parameters('Level3').Modules[copyIndex()].Name)]",
+            "location": "[parameters('accountLocation')]",
+            "dependsOn": [],
+            "tags": {},
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('Level3').Modules[copyIndex()].Uri]"
+                }
+            },
+            "copy": {
+                "name": "Level3ModulesInstall",
+                "count": "[length(parameters('Level3').Modules)]",
+                "mode": "Serial",
+                "batchSize": 1
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/', parameters('Level2').Modules[copyIndex()].Name)]",
+            "location": "[parameters('accountLocation')]",
+            "dependsOn": [
+                "Level3ModulesInstall"
+            ],
+            "tags": {},
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('Level2').Modules[copyIndex()].Uri]"
+                }
+            },
+            "copy": {
+                "name": "Level2ModulesInstall",
+                "count": "[length(parameters('Level2').Modules)]",
+                "mode": "Serial",
+                "batchSize": 1
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/', parameters('Level1').Modules[copyIndex()].Name)]",
+            "location": "[parameters('accountLocation')]",
+            "dependsOn": [
+                "Level2ModulesInstall"
+            ],
+            "tags": {},
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('Level1').Modules[copyIndex()].Uri]"
+                }
+            },
+            "copy": {
+                "name": "Level1ModulesInstall",
+                "count": "[length(parameters('Level1').Modules)]",
+                "mode": "Serial",
+                "batchSize": 5
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/', parameters('Level0').Modules[copyIndex()].Name)]",
+            "location": "[parameters('accountLocation')]",
+            "dependsOn": [
+                "Level1ModulesInstall"
+            ],
+            "tags": {},
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('Level0').Modules[copyIndex()].Uri]"
+                }
+            },
+            "copy": {
+                "name": "Level0ModulesInstall",
+                "count": "[length(parameters('Level0').Modules)]",
+                "mode": "Serial",
+                "batchSize": 1
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/runbooks",
+            "apiVersion": "2018-06-30",
+            "name": "[concat(parameters('accountName'), '/StorageRollOver')]",
+            "location": "[parameters('accountLocation')]",
+            "properties": {
+                "description": "This should Rollover StorageAccount Secrets runbook",
+                "logVerbose": false,
+                "logProgress": false,
+                "logActivityTrace": 0,
+                "runbookType": "PowerShell"
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/Phase1Schedule')]",
+            "properties": {
+                "description": "Phase1 Schedule for Roll over of secrets",
+                "startTime": "parameters('phase1StartTime')",
+                "expiryTime": "9999-12-31T23:59:59.9999999+00:00",
+                "interval": 90,
+                "frequency": "Day",
+                "timeZone": "Asia/Kolkata"
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/Phase2Schedule')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('accountName'))]"
+            ],
+            "properties": {
+                "description": "Phase2 schedule to complete secrets rollover",
+                "startTime": "parameters('phase2StartTime')",
+                "expiryTime": "9999-12-31T23:59:59.9999999+00:00",
+                "interval": 90,
+                "frequency": "Hour",
+                "timeZone": "Asia/Kolkata"
+            }
+        }
+
+    ]
+}
