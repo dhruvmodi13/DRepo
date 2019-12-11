@@ -20,10 +20,13 @@
         },
         "Level0": {
             "type": "Object"
+        },
+        "url": {
+            "type": "String"
         }
     },
     "variables": {
-        "url": "https://raw.githubusercontent.com/dhruvmodi13/DRepo/master/StorageRollover.ps1"
+        "storageUrl": "[parameters('url')]"
     },
     "resources": [
         {
@@ -120,7 +123,7 @@
                 "logActivityTrace": 0,
                 "runbookType": "PowerShell",
                 "publishContentLink": {
-                    "uri": "[variables('url')]",
+                    "uri": "[variables('storageUrl')]",
                     "version": "1.0.0.0"
                 }
             }
