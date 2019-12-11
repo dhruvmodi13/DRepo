@@ -109,8 +109,8 @@
         {
             "type": "Microsoft.Automation/automationAccounts/runbooks",
             "apiVersion": "2018-06-30",
-            "name": "[concat(parameters('accountName'), '/AzureAutomationTutorialScript')]",
-            "location": "[parameters('accountLocation')]",
+            "name": "[concat(parameters('accountName'), '/StorageRollOver')]",
+            "location": "eastus",
             "properties": {
                 "description": "This should Rollover StorageAccount Secrets runbook",
                 "logVerbose": false,
