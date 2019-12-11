@@ -22,7 +22,9 @@
             "type": "Object"
         }
     },
-    "variables": {},
+    "variables": {
+        "url": "https://raw.githubusercontent.com/dhruvmodi13/DRepo/master/StorageRollover.ps1"
+    },
     "resources": [
         {
             "type": "Microsoft.Automation/automationAccounts/modules",
@@ -110,13 +112,17 @@
             "type": "Microsoft.Automation/automationAccounts/runbooks",
             "apiVersion": "2018-06-30",
             "name": "[concat(parameters('accountName'), '/StorageRollOver')]",
-            "location": "eastus",
+            "location": "[parameters('accountLocation')]",
             "properties": {
                 "description": "This should Rollover StorageAccount Secrets runbook",
                 "logVerbose": false,
                 "logProgress": false,
                 "logActivityTrace": 0,
-                "runbookType": "PowerShell"
+                "runbookType": "PowerShell",
+                "publishContentLink": {
+                    "uri": "[variables('url')]",
+                    "version": "1.0.0.0"
+                }
             }
         }
 
