@@ -20,6 +20,9 @@
         },
         "Level0": {
             "type": "Object"
+        },
+        "Levelneg1": {
+            "type": "Object"
         }
     },
     "variables": {
@@ -103,6 +106,27 @@
             "copy": {
                 "name": "Level0ModulesInstall",
                 "count": "[length(parameters('Level0').Modules)]",
+                "mode": "Serial",
+                "batchSize": 1
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('accountName'), '/', parameters('Levelneg1').Modules[copyIndex()].Name)]",
+            "location": "[parameters('accountLocation')]",
+            "dependsOn": [
+                "Level0ModulesInstall"
+            ],
+            "tags": {},
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('Levelneg1').Modules[copyIndex()].Uri]"
+                }
+            },
+            "copy": {
+                "name": "Levelneg1ModulesInstall",
+                "count": "[length(parameters('Levelneg1').Modules)]",
                 "mode": "Serial",
                 "batchSize": 1
             }
