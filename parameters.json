@@ -112,6 +112,16 @@
                     }
                 ]
             }
+        },
+        "levelneg1": {
+            "value": {
+                "Modules": [
+                    {
+                        "Name": "ADAL.PS",
+                        "Uri": "https://devopsgallerystorage.blob.core.windows.net/packages/adal.ps.3.19.8.1.nupkg"
+                    }
+                ]
+            }
         }
     }
 }
