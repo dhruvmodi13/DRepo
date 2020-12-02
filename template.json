@@ -1,135 +1,113 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "accountName": {
-            "defaultValue": "siautomation",
-            "type": "String"
-        },
-        "accountLocation": {
-            "type": "String"
-        },
-        "Level3": {
-            "type": "Object"
-        },
-        "Level2": {
-            "type": "Object"
-        },
-        "Level1": {
-            "type": "Object"
-        },
-        "Level0": {
-            "type": "Object"
-        },
-        "Levelneg1": {
-            "type": "Object"
+        "scaleUnit": {
+            "type": "string",
+            "defaultValue": "exprsv55",
+            "metadata": {
+                "description": "Describes the scale unit that is to be used to uniquely identify each resource"
+            }
         }
     },
     "variables": {
+        "predictionServicePrincipalIdPME": "38b85129-c175-4651-8104-711f58216a28",
+        "Contributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+        "networkContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4d97b98b-1d4f-4787-a291-c67834d212e7')]",
+        "batchAccountName": "[concat('crmrisibatch', parameters('scaleUnit'))]",
+        "vmAppNodeTypeName": "appVmType",
+        "vmAppTypeNodeRoleName": "[guid(uniqueString(variables('vmAppNodeTypeName'), subscription().subscriptionId, parameters('scaleUnit')))]",
+        "vmEiNodeTypeName": "eiVmType",
+        "vmEiTypeNodeRoleName": "[guid(uniqueString(variables('vmEiNodeTypeName'), subscription().subscriptionId, parameters('scaleUnit')))]",
+        "vmNodeType2Name": "adcType",
+        "vmTypeNode2RoleName": "[guid(uniqueString(variables('vmNodeType2Name'), subscription().subscriptionId, parameters('scaleUnit')))]"
+
     },
     "resources": [
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/', parameters('Level3').Modules[copyIndex()].Name)]",
-            "location": "[parameters('accountLocation')]",
-            "dependsOn": [],
-            "tags": {},
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2017-05-01",
+            "name": "[guid(subscription().subscriptionId , resourceGroup().name, 'predictionServicePrincipalId')]",
             "properties": {
-                "contentLink": {
-                    "uri": "[parameters('Level3').Modules[copyIndex()].Uri]"
-                }
-            },
-            "copy": {
-                "name": "Level3ModulesInstall",
-                "count": "[length(parameters('Level3').Modules)]",
-                "mode": "Serial",
-                "batchSize": 1
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalId": "[variables('predictionServicePrincipalIdPME')]",
+                "scope": "[resourceGroup().id]"
             }
         },
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/', parameters('Level2').Modules[copyIndex()].Name)]",
-            "location": "[parameters('accountLocation')]",
-            "dependsOn": [
-                "Level3ModulesInstall"
-            ],
-            "tags": {},
+            "type": "Microsoft.Batch/batchAccounts/providers/roleAssignments",
+            "apiVersion": "2017-05-01",
+            "name": "[concat(variables('batchAccountName'), '/Microsoft.Authorization/', guid(uniqueString(variables('vmAppTypeNodeRoleName'), 'batchContributor')))]",
             "properties": {
-                "contentLink": {
-                    "uri": "[parameters('Level2').Modules[copyIndex()].Uri]"
-                }
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmAppNodeTypeName')), '2017-12-01', 'Full').identity.principalId]"
             },
-            "copy": {
-                "name": "Level2ModulesInstall",
-                "count": "[length(parameters('Level2').Modules)]",
-                "mode": "Serial",
-                "batchSize": 1
-            }
+            "dependsOn": [
+                "[concat('Microsoft.Batch/batchAccounts/', variables('batchAccountName'))]",
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmAppNodeTypeName'))]"
+            ]
         },
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/', parameters('Level1').Modules[copyIndex()].Name)]",
-            "location": "[parameters('accountLocation')]",
-            "dependsOn": [
-                "Level2ModulesInstall"
-            ],
-            "tags": {},
+            "type": "Microsoft.Batch/batchAccounts/providers/roleAssignments",
+            "apiVersion": "2017-05-01",
+            "name": "[concat(variables('batchAccountName'), '/Microsoft.Authorization/', guid(uniqueString(variables('vmEiTypeNodeRoleName'), 'batchContributor')))]",
             "properties": {
-                "contentLink": {
-                    "uri": "[parameters('Level1').Modules[copyIndex()].Uri]"
-                }
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmEiNodeTypeName')), '2017-12-01', 'Full').identity.principalId]"
             },
-            "copy": {
-                "name": "Level1ModulesInstall",
-                "count": "[length(parameters('Level1').Modules)]",
-                "mode": "Serial",
-                "batchSize": 5
-            }
+            "dependsOn": [
+                "[concat('Microsoft.Batch/batchAccounts/', variables('batchAccountName'))]",
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmEiNodeTypeName'))]"
+            ]
         },
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/', parameters('Level0').Modules[copyIndex()].Name)]",
-            "location": "[parameters('accountLocation')]",
-            "dependsOn": [
-                "Level1ModulesInstall"
-            ],
-            "tags": {},
+            "type": "Microsoft.Batch/batchAccounts/providers/roleAssignments",
+            "apiVersion": "2017-05-01",
+            "name": "[concat(variables('batchAccountName'), '/Microsoft.Authorization/', guid(uniqueString(variables('vmTypeNode2RoleName'), 'batchContributor')))]",
             "properties": {
-                "contentLink": {
-                    "uri": "[parameters('Level0').Modules[copyIndex()].Uri]"
-                }
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmNodeType2Name')), '2017-12-01', 'Full').identity.principalId]"
             },
-            "copy": {
-                "name": "Level0ModulesInstall",
-                "count": "[length(parameters('Level0').Modules)]",
-                "mode": "Serial",
-                "batchSize": 1
-            }
+            "dependsOn": [
+                "[concat('Microsoft.Batch/batchAccounts/', variables('batchAccountName'))]",
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmNodeType2Name'))]"
+            ]
         },
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
-            "apiVersion": "2015-10-31",
-            "name": "[concat(parameters('accountName'), '/', parameters('Levelneg1').Modules[copyIndex()].Name)]",
-            "location": "[parameters('accountLocation')]",
-            "dependsOn": [
-                "Level0ModulesInstall"
-            ],
-            "tags": {},
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[variables('vmTypeNode2RoleName')]",
             "properties": {
-                "contentLink": {
-                    "uri": "[parameters('Levelneg1').Modules[copyIndex()].Uri]"
-                }
+                "roleDefinitionId": "[variables('networkContributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmNodeType2Name')), '2017-12-01', 'Full').identity.principalId]"
             },
-            "copy": {
-                "name": "Levelneg1ModulesInstall",
-                "count": "[length(parameters('Levelneg1').Modules)]",
-                "mode": "Serial",
-                "batchSize": 1
-            }
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmNodeType2Name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[variables('vmAppTypeNodeRoleName')]",
+            "properties": {
+                "roleDefinitionId": "[variables('networkContributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmAppNodeTypeName')), '2017-12-01', 'Full').identity.principalId]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmAppNodeTypeName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[variables('vmEiTypeNodeRoleName')]",
+            "properties": {
+                "roleDefinitionId": "[variables('networkContributor')]",
+                "principalId": "[reference(concat('Microsoft.Compute/virtualMachineScaleSets/',  variables('vmEiNodeTypeName')), '2017-12-01', 'Full').identity.principalId]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmEiNodeTypeName'))]"
+            ]
         }
 
     ]
