@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "siRGName": {
+        "azureVMSSADObjectId": {
             "type": "String",
             "metadata": {
-                "description": "SI Resource Group value."
+                "description": "azureVMSSADObjectId value."
             }
         }
     },
@@ -14,7 +14,6 @@
         "serviceBusName": "[toLower(concat('forecasting-message-bus-', resourceGroup().name))]",
         "queueName": "[concat(variables('serviceBusName'), '/ml-computation-jobs')]",
         "dataOwnerRoleId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '090c5cfd-751d-490a-894a-3ce6f1109419')]",
-        "azureVMSSADObjectId": "[reference(resourceId(parameters('siRGName'),'Microsoft.Compute/virtualMachineScaleSets', variables('vmAppNodeTypeName')), '2019-03-01', 'Full').identity.principalId]"
     },
     "resources": [
         {
@@ -23,7 +22,7 @@
             "name": "[concat(variables('queueName'), '/Microsoft.Authorization/', guid(uniqueString(variables('queueName'))))]",
             "properties": {
                 "roleDefinitionId": "[variables('dataOwnerRoleId')]",
-                "principalId": "[variables('azureVMSSADObjectId')]"
+                "principalId": "[parameters('azureVMSSADObjectId')]"
             }
         }
     ]
